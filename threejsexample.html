@@ -9,8 +9,16 @@
 		</style>
 	</head>
 	<body>
-		<script src="js/three.js"></script>
+		<!-- These scripts can be removed on an active site with a server.
+		Dependencies will be handled with npm? -->
+		<script src="node_modules/three/build/three.js"></script>
+		<script src="node_modules/three/examples/js/Detector.js"></script>
 		<script>
+			//add this lines below when you get the real site up and running
+			//with node.js.  You use npm to handle your dependencies for you.
+			//import * as THREE from 'three';
+			//import * as Detector from "Detector";
+
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -33,7 +41,15 @@
 				
 				renderer.render( scene, camera );
 			}
-			animate();
+			if (Detector.webgl) {
+			    // Initiate function or other initializations here
+			    animate();
+			} else {
+			    var warning = Detector.getWebGLErrorMessage();
+			    document.getElementById('container').appendChild(warning);
+			    console.log("shieet");
+			}
+			//animate();
 		</script>
 	</body>
 </html>
