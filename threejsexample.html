@@ -13,14 +13,24 @@
 		Dependencies will be handled with npm? -->
 		<script src="node_modules/three/build/three.js"></script>
 		<script src="node_modules/three/examples/js/Detector.js"></script>
+		<!--<script src="node_modules/three/examples/js/controls/OrbitControls.js"></script>-->
+		<!--<script src="movement.js"></script>-->
 		<script>
 			//add this lines below when you get the real site up and running
 			//with node.js.  You use npm to handle your dependencies for you.
 			//import * as THREE from 'three';
 			//import * as Detector from "Detector";
+			console.log("Begin!");
+			debugger;
 
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			//add 2nd argument if you need to change the eventlisteners to 
+			//just the canvas htmldomelement.  Default is the entire document.
+			/*var controls = new THREE.OrbitControls(camera);
+			controls.enableDamping = true;
+			controls.dampingFactor = 0.5;
+			controls.enablePan = false;*/
 
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
@@ -28,16 +38,28 @@
 
 			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 			var material = new THREE.MeshNormalMaterial();
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+			var mesh = new THREE.Mesh( geometry, material );
+			var group = new THREE.Object3D();
+			group.add(mesh)
+			scene.add(group);
 
 			camera.position.z = 5;
+			//controls.update();
+
+			//var movement = new Movement(group);
+
+			//document.addEventListener( 'mousedown', movement.onDocumentMouseDown, false );
+	        //document.addEventListener( 'touchstart', movement.onDocumentTouchStart, false );
+	        //document.addEventListener( 'touchmove', movement.onDocumentTouchMove, false );
+
+	        //figure out window resizing later.
+	        //window.addEventListener( 'resize', movement.onWindowResize, false );
 
 			function animate() {
 				requestAnimationFrame( animate );
 
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
+				//controls.update();
+				//movement.render();
 				
 				renderer.render( scene, camera );
 			}
@@ -49,7 +71,6 @@
 			    document.getElementById('container').appendChild(warning);
 			    console.log("shieet");
 			}
-			//animate();
 		</script>
 	</body>
 </html>
